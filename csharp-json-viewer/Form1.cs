@@ -11,21 +11,24 @@ namespace csharp_json_viewer
         public Form1()
         {
             InitializeComponent();
+
+
         }
 
         HttpClient client = new HttpClient();
         List<Users>? users = new List<Users>();
-        string url = "";
+        string url = @"";
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //activateBtn.Enabled = false;
+            loadBtn.Enabled = false;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+        //private void button2_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -34,27 +37,30 @@ namespace csharp_json_viewer
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            
-        }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            //loadBtn.Enabled = true;
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-
+            //loadBtn.Enabled = true;
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            url = textBox1.Text;
+        }
+
 
         private void activateBtn_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != null) {
+            if (!string.IsNullOrEmpty(url))
+            {
                 loadBtn.Enabled = true;
-            MessageBox.Show("URL/SRC Activated");
-            url = textBox1.Text;
+                textBox1.Text = url;
+                MessageBox.Show("URL/SRC Activated");
             }
-            else if(textBox1.Text == null)
+            else
             {
                 MessageBox.Show("URL/SRC Invalid!");
             }
@@ -62,15 +68,17 @@ namespace csharp_json_viewer
 
         private async void loadBtn_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked && textBox1.Text != null)
+            if (radioButton1.Checked)
             {
                 try
                 {
                     using (HttpClient client = new HttpClient())
                     {
                         string? loadOnline = await client.GetStringAsync(url);
-                        List<Users>? users = JsonSerializer.Deserialize<List<Users>>(loadOnline);
-                        dataGridView1.DataSource = users;
+                        List<Users>? userOnline = JsonSerializer.Deserialize<List<Users>>(loadOnline);
+                        dataGridView1.DataSource = userOnline;
+                        dataGridView1.Columns["Address"].Visible = false;
+                        MessageBox.Show("Load! Success");
                     }
                 }
                 catch (Exception ex)
@@ -79,13 +87,15 @@ namespace csharp_json_viewer
                 }
             }
 
-            else if (radioButton2.Checked && textBox1.Text != null)
+            else if (radioButton2.Checked)
             {
                 try
                 {
                     string loadLocal = await File.ReadAllTextAsync(url);
                     List<Users>? userLocal = JsonSerializer.Deserialize<List<Users>>(loadLocal);
                     dataGridView1.DataSource = userLocal;
+                    dataGridView1.Columns["Address"].Visible = false;
+                    MessageBox.Show("Load! Success");
                 }
                 catch (Exception ex)
                 {
@@ -95,6 +105,7 @@ namespace csharp_json_viewer
             else
             {
                 loadBtn.Enabled = false;
+                MessageBox.Show("Faild to Load!");
             }
 
 
@@ -102,8 +113,13 @@ namespace csharp_json_viewer
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            //activateBtn.Enabled = false;
-            //loadBtn.Enabled = false;
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //string viewJson = "https://jsonplaceholder.typicode.com/users";
+            //textBox1.Text = viewJson;
         }
     }
 }

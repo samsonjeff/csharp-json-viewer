@@ -75,7 +75,6 @@
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(81, 27);
             radioButton1.TabIndex = 2;
-            radioButton1.TabStop = true;
             radioButton1.Text = "Online";
             radioButton1.UseVisualStyleBackColor = true;
             radioButton1.CheckedChanged += radioButton1_CheckedChanged;
@@ -88,7 +87,6 @@
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(70, 27);
             radioButton2.TabIndex = 3;
-            radioButton2.TabStop = true;
             radioButton2.Text = "Local";
             radioButton2.UseVisualStyleBackColor = true;
             radioButton2.CheckedChanged += radioButton2_CheckedChanged;
@@ -148,7 +146,7 @@
             Controls.Add(loadBtn);
             Controls.Add(activateBtn);
             Name = "Form1";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "who is Json?";
             Load += Form1_Load;
             Shown += Form1_Shown;
