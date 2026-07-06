@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,8 @@ namespace csharp_json_viewer
         public int id { get; set; }
         public string? username { get; set; }
         public string? email { get; set; }
+
+        [Browsable(false)]
         public Address? address { get; set; }
 
         public string? city => address?.city;

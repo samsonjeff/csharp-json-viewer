@@ -63,12 +63,13 @@ namespace csharp_json_viewer
             else
             {
                 MessageBox.Show("URL/SRC Invalid!");
+                loadBtn.Enabled=false;
             }
         }
 
         private async void loadBtn_Click(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if (radioButton1.Checked && !string.IsNullOrEmpty(url))
             {
                 try
                 {
@@ -87,14 +88,14 @@ namespace csharp_json_viewer
                 }
             }
 
-            else if (radioButton2.Checked)
+            else if (radioButton2.Checked && !string.IsNullOrEmpty(url))
             {
                 try
                 {
                     string loadLocal = await File.ReadAllTextAsync(url);
                     List<Users>? userLocal = JsonSerializer.Deserialize<List<Users>>(loadLocal);
                     dataGridView1.DataSource = userLocal;
-                    dataGridView1.Columns["Address"].Visible = false;
+                    //dataGridView1.Columns["Address"].Visible = false;
                     MessageBox.Show("Load! Success");
                 }
                 catch (Exception ex)
