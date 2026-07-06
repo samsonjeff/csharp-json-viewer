@@ -95,7 +95,7 @@ namespace csharp_json_viewer
                     string loadLocal = await File.ReadAllTextAsync(url);
                     List<Users>? userLocal = JsonSerializer.Deserialize<List<Users>>(loadLocal);
                     dataGridView1.DataSource = userLocal;
-                    //dataGridView1.Columns["Address"].Visible = false;
+                    dataGridView1.Columns["Address"].Visible = false;
                     MessageBox.Show("Load! Success");
                 }
                 catch (Exception ex)

@@ -15,7 +15,7 @@ namespace csharp_json_viewer
         public string? username { get; set; }
         public string? email { get; set; }
 
-        [Browsable(false)]
+        //[Browsable(false)]
         public Address? address { get; set; }
 
         public string? city => address?.city;
